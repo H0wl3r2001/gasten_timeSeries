@@ -1,0 +1,48 @@
+{
+  "train_stats": {
+    "best_loss": 0.2248219966448541,
+    "best_epoch": 0,
+    "early_stop_tracker": 0,
+    "cur_epoch": 0,
+    "train_acc": [
+      0.9221330285072327
+    ],
+    "train_loss": [
+      0.5136840982552174
+    ],
+    "val_acc": [
+      0.9889298677444458
+    ],
+    "val_loss": [
+      0.2248219966448541
+    ],
+    "test_acc": 0.9852057099342346,
+    "test_loss": 0.22707077247700755
+  },
+  "model_params": {
+    "type": "cnn",
+    "img_size": [
+      1,
+      28,
+      28
+    ],
+    "nf": 1,
+    "n_classes": 2
+  },
+  "args": {
+    "data_dir": "C:/Users/afons/Documents/2023-2024/tese/gasten_timeSeries/data",
+    "out_dir": "C:/Users/afons/Documents/2023-2024/tese/gasten_timeSeries/models",
+    "name": null,
+    "dataset_name": "mnist",
+    "pos_class": 7,
+    "neg_class": 1,
+    "batch_size": 64,
+    "c_type": "cnn",
+    "epochs": 1,
+    "early_stop": 3,
+    "lr": 0.001,
+    "nf": 1,
+    "seed": 96089,
+    "device": "cpu"
+  }
+}
