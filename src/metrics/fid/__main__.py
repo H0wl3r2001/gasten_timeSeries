@@ -72,9 +72,11 @@ def main():
 
     dataloader = torch.utils.data.DataLoader(
         dset, batch_size=args.batch_size, shuffle=False, num_workers=num_workers)
+    
 
     if args.model_path is None:
         get_feature_map_fn, dims = get_inception_feature_map_fn(device)
+        print("Using InceptionV3 model to get feature maps.")
     else:
         if not os.path.exists(args.model_path):
             print("Model Path doesn't exist")
@@ -83,17 +85,27 @@ def main():
         model.to(device)
         model.eval()
         model.output_feature_maps = True
+        print("Using model from", args.model_path)
 
         def get_feature_map_fn(images, batch):
             return model(images, batch)[1]
 
         dims = get_feature_map_fn(dset.data[0:1], (0, 1)).size(1)
+        print("Feature map dims", dims)
 
+    
     m, s = fid.calculate_activation_statistics_dataloader(
         dataloader, get_feature_map_fn, dims=dims, device=device)
+    
+    print("Saving stats to", os.path.join(args.dataroot, 'fid-stats', '{}.npz'.format(name)))
+    print("Mean", m)
+    print("Sigma", s)
+    
 
     with open(os.path.join(args.dataroot, 'fid-stats', '{}.npz'.format(name)), 'wb') as f:
+        print("Saving stats to", f)
         np.savez(f, mu=m, sigma=s)
+        print("Saved stats to", f)
 
 
 if __name__ == '__main__':

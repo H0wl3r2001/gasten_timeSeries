@@ -10,7 +10,7 @@ num-workers: 6
 
 fid-stats-path: data/fid-stats/stats.inception.mnist.7v1.npz
 
-num-runs: 3
+num-runs: 1
 
 dataset:
   name: mnist
@@ -37,7 +37,7 @@ optimizer:
 
 train:
   step-1:
-    epochs: 10
+    epochs: 5
     checkpoint-every: 1
     disc-iters: 1
     batch-size: 64

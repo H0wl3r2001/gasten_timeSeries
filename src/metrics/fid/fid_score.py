@@ -201,21 +201,34 @@ def get_activations_dataloader(dataloader, feature_map_fn, dims=2048, device='cp
        activations of the given tensor when feeding inception with the
        query tensor.
     """
+    print("Calculating activations dataloader")
     pred_arr = np.empty((len(dataloader.dataset), dims))
+    print("np empty instructions done")
 
     start_idx = 0
 
+    print("Starting loop")
     for batch in tqdm(dataloader):
+        print("Batch")
         batch = batch[0].to(device)
 
+        print("torch no grad")
         with torch.no_grad():
+            print("feature map fn")
             pred = feature_map_fn(batch, start_idx, batch.shape[0])
+            print("feature map fn done")
 
+        print("cpu numpy")
         pred = pred.cpu().numpy()
+        print("cpu numpy done")
 
+        print("pred arr")
         pred_arr[start_idx:start_idx + pred.shape[0]] = pred
+        print("pred arr done")
 
+        print("start idx")
         start_idx = start_idx + pred.shape[0]
+        print("start idx done")
 
     return pred_arr
 
@@ -235,7 +248,9 @@ def calculate_activation_statistics_dataloader(dataloader, feature_map_fn, dims=
     -- sigma : The covariance matrix of the activations of the pool_3 layer of
                the inception model.
     """
+    print("Calculating activation statistics")
     act = get_activations_dataloader(dataloader, feature_map_fn, dims, device)
+    print("Calculating mu and sigma")
     mu = np.mean(act, axis=0)
     sigma = np.cov(act, rowvar=False)
     return mu, sigma
