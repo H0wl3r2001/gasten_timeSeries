@@ -201,34 +201,34 @@ def get_activations_dataloader(dataloader, feature_map_fn, dims=2048, device='cp
        activations of the given tensor when feeding inception with the
        query tensor.
     """
-    print("Calculating activations dataloader")
+    #print("Calculating activations dataloader")
     pred_arr = np.empty((len(dataloader.dataset), dims))
-    print("np empty instructions done")
+    #print("np empty instructions done")
 
     start_idx = 0
 
-    print("Starting loop")
+    #print("Starting loop")
     for batch in tqdm(dataloader):
-        print("Batch")
+        #print("Batch")
         batch = batch[0].to(device)
 
-        print("torch no grad")
+        #print("torch no grad")
         with torch.no_grad():
-            print("feature map fn")
+            #print("feature map fn")
             pred = feature_map_fn(batch, start_idx, batch.shape[0])
-            print("feature map fn done")
+            #print("feature map fn done")
 
-        print("cpu numpy")
+        #print("cpu numpy")
         pred = pred.cpu().numpy()
-        print("cpu numpy done")
+        #print("cpu numpy done")
 
-        print("pred arr")
+        #print("pred arr")
         pred_arr[start_idx:start_idx + pred.shape[0]] = pred
-        print("pred arr done")
+        #print("pred arr done")
 
-        print("start idx")
+        #print("start idx")
         start_idx = start_idx + pred.shape[0]
-        print("start idx done")
+        #print("start idx done")
 
     return pred_arr
 

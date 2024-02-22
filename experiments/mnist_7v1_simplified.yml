@@ -37,31 +37,24 @@ optimizer:
 
 train:
   step-1:
-    epochs: 10
+    epochs: 5
     checkpoint-every: 1
     disc-iters: 1
     batch-size: 64
 
   step-2:
-    epochs: 40
+    epochs: 20
     checkpoint-every: 10
     step-1-epochs:
       - 0
       - 2
       - 5
-      - 10
     batch-size: 64
     disc-iters: 1
     classifier:
-      - models/mnist.7v1/cnn-1-1.96089
-      - models/mnist.7v1/cnn-2-1.87719
       - models/mnist.7v1/cnn-4-1.67030
     weight:
       - 0
       - mgda
       - 5
       - 10
-      - 15
-      - 20
-      - 25
-      - 30
